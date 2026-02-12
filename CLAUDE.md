@@ -9,11 +9,11 @@ RPMC (Remote PC Management Controller) — a LAN-based web tool for remotely pow
 ## Dependencies
 
 ```bash
-sudo apt install python3-flask samba-common-bin
+sudo apt install python3-flask sshpass
 ```
 
 - `python3-flask` — Web framework (backend)
-- `samba-common-bin` — Provides `net rpc` command for remote shutdown/restart
+- `sshpass` — Enables non-interactive SSH password authentication for remote shutdown/restart
 
 ## Running
 
@@ -31,7 +31,7 @@ Serves on `0.0.0.0:5000`. Access from phone at `http://<server-ip>:5000`. Log ou
 Single-file Flask backend (`server.py`) + single-page frontend (`templates/index.html` with inline CSS/JS).
 
 - **WOL (power on):** Pure Python UDP broadcast of magic packet to port 9. Requires stored MAC address.
-- **Shutdown/Restart:** Shells out to `net rpc shutdown -I <ip> -U <user>%<pass> -f [-r]`.
+- **Shutdown/Restart:** SSH into Windows PC via `sshpass` + `ssh` and runs `shutdown /s /f /t 0` (or `/r` for restart). Requires OpenSSH Server enabled on target PC.
 - **MAC resolution:** Pings target then reads `ip neigh show` to get MAC from ARP table.
 - **Data persistence:** `data.json` stores PC list (IP, MAC, username, password) as a flat JSON array. Loaded/saved on every request — no caching.
 

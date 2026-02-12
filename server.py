@@ -47,10 +47,18 @@ def send_wol(mac):
 
 
 def remote_shutdown(ip, username, password, reboot=False):
-    """Shutdown or restart a remote Windows PC via net rpc."""
-    cmd = ["net", "rpc", "shutdown", "-I", ip, "-U", f"{username}%{password}", "-f"]
+    """Shutdown or restart a remote Windows PC via SSH."""
     if reboot:
-        cmd.append("-r")
+        win_cmd = "shutdown /r /f /t 0"
+    else:
+        win_cmd = "shutdown /s /f /t 0"
+    cmd = [
+        "sshpass", "-p", password,
+        "ssh", "-o", "StrictHostKeyChecking=no",
+        "-o", "ConnectTimeout=10",
+        f"{username}@{ip}",
+        win_cmd,
+    ]
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
         if result.returncode == 0:
@@ -59,7 +67,7 @@ def remote_shutdown(ip, username, password, reboot=False):
     except subprocess.TimeoutExpired:
         return False, "Command timed out"
     except FileNotFoundError:
-        return False, "net rpc not found. Install samba-common-bin: sudo apt install samba-common-bin"
+        return False, "sshpass not found. Install: sudo apt install sshpass"
 
 
 @app.route("/")
