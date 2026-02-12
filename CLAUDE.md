@@ -9,10 +9,12 @@ RPMC (Remote PC Management Controller) — a LAN-based web tool for remotely pow
 ## Running
 
 ```bash
-python3 server.py
+./bin/start.sh    # Start (background)
+./bin/stop.sh     # Stop
+./bin/restart.sh  # Restart
 ```
 
-Serves on `0.0.0.0:5000`. Access from phone at `http://<server-ip>:5000`.
+Serves on `0.0.0.0:5000`. Access from phone at `http://<server-ip>:5000`. Log output in `rpmc.log`.
 
 **System dependency:** `samba-common-bin` (provides `net rpc` for remote shutdown/restart).
 
