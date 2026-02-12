@@ -6,6 +6,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 RPMC (Remote PC Management Controller) — a LAN-based web tool for remotely powering on, shutting down, and restarting Windows PCs from a mobile browser. Runs on a Linux server.
 
+## Dependencies
+
+```bash
+sudo apt install python3-flask samba-common-bin
+```
+
+- `python3-flask` — Web framework (backend)
+- `samba-common-bin` — Provides `net rpc` command for remote shutdown/restart
+
 ## Running
 
 ```bash
@@ -16,7 +25,6 @@ RPMC (Remote PC Management Controller) — a LAN-based web tool for remotely pow
 
 Serves on `0.0.0.0:5000`. Access from phone at `http://<server-ip>:5000`. Log output in `rpmc.log`.
 
-**System dependency:** `samba-common-bin` (provides `net rpc` for remote shutdown/restart).
 
 ## Architecture
 
