@@ -31,7 +31,7 @@ Serves on `0.0.0.0:5000`. Access from phone at `http://<server-ip>:5000`. Log ou
 Single-file Flask backend (`server.py`) + single-page frontend (`templates/index.html` with inline CSS/JS).
 
 - **WOL (power on):** Pure Python UDP broadcast of magic packet to port 9. Requires stored MAC address.
-- **Shutdown/Restart:** SSH into Windows PC via `sshpass` + `ssh` and runs `shutdown /s /f /t 0` (or `/r` for restart). Requires OpenSSH Server enabled on target PC.
+- **Shutdown/Restart:** SSH into Windows PC via `sshpass` + `ssh` and runs `shutdown /s /f /t 0` (or `/r` for restart). Requires OpenSSH Server enabled on target PC, port 22 open in Windows Firewall, and Windows local username (not Microsoft account email).
 - **MAC resolution:** Pings target then reads `ip neigh show` to get MAC from ARP table.
 - **Data persistence:** `data.json` stores PC list (IP, MAC, username, password) as a flat JSON array. Loaded/saved on every request — no caching.
 
