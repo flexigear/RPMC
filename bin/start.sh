@@ -1,6 +1,6 @@
 #!/bin/bash
 cd "$(dirname "$0")/.."
-if pgrep -f "python3.*server.py" > /dev/null; then
+if pgrep -xf "python3 server.py" > /dev/null; then
   echo "RPMC is already running"
   exit 0
 fi

@@ -25,6 +25,8 @@ sudo apt install python3-flask sshpass
 
 Serves on `0.0.0.0:5000`. Access from phone at `http://<server-ip>:5000`. Log output in `rpmc.log`.
 
+Runs with Flask `debug=False` (no auto-reloader, no Werkzeug debugger). After editing code, run `./bin/restart.sh` manually.
+
 
 ## Architecture
 
